@@ -28,6 +28,16 @@ public class StudentController {
         return studentRepository.findById(id);
     }
 
+    @GetMapping("getStudentByName/{name}")
+    public Student getStudent(@PathVariable("name") String name) {
+        return studentRepository.findByName(name);
+    }
+
+    @GetMapping("getStudentByNameAndAddress/{name}/{address}")
+    public Student getStudent(@PathVariable("name") String name, @PathVariable("address") String address) {
+        return studentRepository.findByNameAndAddress(name, address);
+    }
+
     @GetMapping("getStudent")
     public Optional<Student> getStudentByParam(@RequestParam(required = false) Long id) {
         return studentRepository.findById(id);
