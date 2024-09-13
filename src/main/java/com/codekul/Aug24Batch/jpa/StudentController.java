@@ -3,10 +3,12 @@ package com.codekul.Aug24Batch.jpa;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("student")
 public class StudentController {
 
     @Autowired
@@ -30,7 +32,7 @@ public class StudentController {
 
     @GetMapping("getStudentByName/{name}")
     public Student getStudent(@PathVariable("name") String name) {
-        return studentRepository.findByName(name);
+        return studentRepository.findByNameEquals(name);
     }
 
     @GetMapping("getStudentByNameAndAddress/{name}/{address}")
@@ -76,6 +78,21 @@ public class StudentController {
     public String deleteById(@PathVariable("id") List<Long> id) {
         studentRepository.deleteAllById(id);
         return "deleted";
+    }
+
+    @GetMapping("selectDistinct/{name}/{address}")
+    public List<Student> distinct(@PathVariable("name") String name, @PathVariable("address") String address) {
+        return studentRepository.findDistinctByNameAndAddress(name, address);
+    }
+
+    @GetMapping("dobBetween/{startDate}/{endDate}")
+    public List<Student> distinct(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) {
+        return studentRepository.findByDobBetween(startDate, endDate);
+    }
+
+    @GetMapping("heightLessThan/{height}")
+    public List<Student> distinct(@PathVariable("height") Integer height) {
+        return studentRepository.findByHeightLessThan(height);
     }
 
 
