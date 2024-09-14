@@ -8,53 +8,53 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("student")
-public class StudentController {
+@RequestMapping("studentJpa")
+public class StudentJpaController {
 
     @Autowired
-    private StudentRepository studentRepository;
+    private StudentJpaRepository studentRepository;
 
     @PostMapping("save")
-    public String saveStudent(@RequestBody Student student) {
+    public String saveStudent(@RequestBody StudentJpa student) {
         studentRepository.save(student);
         return "student saved";
     }
 
     @GetMapping("getAllStudent")
-    public List<Student> getAllStudents() {
+    public List<StudentJpa> getAllStudents() {
         return studentRepository.findAll();
     }
 
     @GetMapping("getStudent/{id}")
-    public Optional<Student> getStudent(@PathVariable("id") Long id) {
+    public Optional<StudentJpa> getStudent(@PathVariable("id") Long id) {
         return studentRepository.findById(id);
     }
 
     @GetMapping("getStudentByName/{name}")
-    public Student getStudent(@PathVariable("name") String name) {
+    public StudentJpa getStudent(@PathVariable("name") String name) {
         return studentRepository.findByNameEquals(name);
     }
 
     @GetMapping("getStudentByNameAndAddress/{name}/{address}")
-    public Student getStudent(@PathVariable("name") String name, @PathVariable("address") String address) {
+    public StudentJpa getStudent(@PathVariable("name") String name, @PathVariable("address") String address) {
         return studentRepository.findByNameAndAddress(name, address);
     }
 
     @GetMapping("getStudent")
-    public Optional<Student> getStudentByParam(@RequestParam(required = false) Long id) {
+    public Optional<StudentJpa> getStudentByParam(@RequestParam(required = false) Long id) {
         return studentRepository.findById(id);
     }
 
     @PutMapping("update")
-    public String updateStudent(@RequestBody Student student) {
+    public String updateStudent(@RequestBody StudentJpa student) {
         studentRepository.save(student);
         return "student updated";
     }
 
     @PutMapping("update1")
-    public String updateStudent1(@RequestBody Student st) {
-        var student = new Student();
-        Optional<Student> student1 = studentRepository.findById(st.getId());
+    public String updateStudent1(@RequestBody StudentJpa st) {
+        var student = new StudentJpa();
+        Optional<StudentJpa> student1 = studentRepository.findById(st.getId());
         student.setId(st.getId());
         student.setName(student1.get().getName());
         student.setAddress(st.getAddress());
@@ -69,7 +69,7 @@ public class StudentController {
     }
 
     @DeleteMapping("deleteByObject")
-    public String deleteById(@RequestBody Student student) {
+    public String deleteById(@RequestBody StudentJpa student) {
         studentRepository.delete(student);
         return "deleted";
     }
@@ -81,17 +81,17 @@ public class StudentController {
     }
 
     @GetMapping("selectDistinct/{name}/{address}")
-    public List<Student> distinct(@PathVariable("name") String name, @PathVariable("address") String address) {
+    public List<StudentJpa> distinct(@PathVariable("name") String name, @PathVariable("address") String address) {
         return studentRepository.findDistinctByNameAndAddress(name, address);
     }
 
     @GetMapping("dobBetween/{startDate}/{endDate}")
-    public List<Student> distinct(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) {
+    public List<StudentJpa> distinct(@PathVariable("startDate") LocalDate startDate, @PathVariable("endDate") LocalDate endDate) {
         return studentRepository.findByDobBetween(startDate, endDate);
     }
 
     @GetMapping("heightLessThan/{height}")
-    public List<Student> distinct(@PathVariable("height") Integer height) {
+    public List<StudentJpa> distinct(@PathVariable("height") Integer height) {
         return studentRepository.findByHeightLessThan(height);
     }
 
