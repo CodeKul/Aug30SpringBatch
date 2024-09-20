@@ -19,7 +19,7 @@ public class Student {
     private Long id;
 
     @NotNull(message = "name cannot be null")
-    @Column(unique = true,name = "stud_name",nullable = false,insertable = true,updatable = false)
+    @Column(unique = true)
     private String name;
 
     @NotNull(message = "address cannot be null")
