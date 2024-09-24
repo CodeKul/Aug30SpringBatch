@@ -23,5 +23,6 @@ public class Person {
     private String email;
 
     @OneToMany(mappedBy = "person",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<MobileNumber> mobileNumber;
 }

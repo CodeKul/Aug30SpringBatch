@@ -1,5 +1,6 @@
 package com.codekul.Aug24Batch.onetomany.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,6 +20,7 @@ public class MobileNumber {
 
     @ManyToOne
     @JoinColumn(name = "person_id")
+    @JsonBackReference
     private Person person;
 
 }
